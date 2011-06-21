@@ -1,0 +1,9 @@
+{% if latest_pub_list %}
+    <ul>
+    {% for pub in latest_pub_list %}
+        <li><a href="/livraria/pubs/{{ pub.cod }}/">{{ pub.titulo }}</a></li>
+    {% endfor %}
+    </ul>
+{% else %}
+    <p>Sem publicacoes.</p>
+{% endif %}
