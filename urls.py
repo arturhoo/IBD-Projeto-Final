@@ -10,6 +10,8 @@ urlpatterns = patterns('',
     # Examples:
     # url(r'^$', 'ibd.views.home', name='home'),
     # url(r'^ibd/', include('ibd.foo.urls')),
+    
+    url(r'^livraria/', include('ibd.livraria.urls')),
 
     # Uncomment the admin/doc line below to enable admin documentation:
     url(r'^admin/doc/', include('django.contrib.admindocs.urls')),
