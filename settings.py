@@ -1,4 +1,8 @@
 # Django settings for ibd project.
+import os
+
+PROJECT_ROOT                = os.path.dirname(os.path.abspath(__file__))
+PROJECT_NAME                = os.path.split(PROJECT_ROOT)[-1]
 
 DEBUG = True
 TEMPLATE_DEBUG = DEBUG
