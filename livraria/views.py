@@ -1,25 +1,65 @@
+# -*- coding: utf-8 -*-
+from django.core.context_processors import csrf
+from django.template import RequestContext
 from django.shortcuts import render_to_response
-from django.http import Http404
+from django.http import Http404, HttpResponseRedirect
 from livraria.models import Publicacao
+from django import forms
+
+MY_CHOICES = (
+    ('autor', 'Nome do Autor'),
+    ('titulo', 'Título da Publicação')
+)
+
+class SearchForm(forms.Form):
+    value = forms.CharField(label="Palavra-chave", max_length=100)
+    stype = forms.ChoiceField(label="Pesquisar por",choices=MY_CHOICES)
 
 def index(request):
+    f = SearchForm()
     latest_pub_list = Publicacao.objects.all().order_by('-data_lancamento')[:5]
-    return render_to_response('livraria/index.html', {'latest_pub_list' : latest_pub_list})
+    c = RequestContext(request, {
+        'latest_pub_list': latest_pub_list,
+        'form': f,
+    })
+    return render_to_response('livraria/index.html', c)
 
-def titleSearch(request, title):
-    try:
-        p = Publicacao.objects.filter(titulo__icontains=title)
-    except Publicacao.DoesNotExist:
-        raise Http404
-    return render_to_response('livraria/search.html', {'pubs': p, 'searchkey':title})
+def search(request):
+    if request.method == 'POST':
+        f = SearchForm(request.POST) # A form bound to the POST data
+        if f.is_valid(): # All validation rules pass
+            value = f.cleaned_data['value']
+            stype = f.cleaned_data['stype']
+            if (stype == 'autor'):
+                p = Publicacao.objects.filter(autores__nome__icontains=value)
+                c = RequestContext(request, {
+                    'pubs': p, 
+                    'searchkey': value,
+                    'form': f,
+                })
+                return render_to_response('livraria/index.html', c)
+            else:
+                p = Publicacao.objects.filter(titulo__icontains=value)
+                c = RequestContext(request, {
+                    'pubs': p, 
+                    'searchkey': value,
+                    'form': f,
+                })
+                return render_to_response('livraria/index.html', c)
+        else:
+            f = SearchForm()
+            return render_to_response('livraria/index.html', {
+                'latest_pub_list': [],
+                'form': f
+            })
+    else:
+        f = SearchForm()
+        return render_to_response('livraria/index.html', {
+            'latest_pub_list': [],
+            'form': f
+        })
 
-def authorSearch(request, name):
-    try:
-        p = Publicacao.objects.filter(autores__nome__icontains=name)
-    except Publicacao.DoesNotExist:
-        raise Http404
-    return render_to_response('livraria/search.html', {'pubs': p,
-        'searchkey':name})
+
 
 def detail(request, pub_id):
     try:

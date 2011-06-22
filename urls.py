@@ -18,9 +18,5 @@ urlpatterns = patterns('',
 
     # Uncomment the next line to enable the admin:
     url(r'^admin/', include(admin.site.urls)),
-    url(r'^$', 
-        ListView.as_view(
-            queryset=Publicacao.objects.order_by('-data_lancamento')[:5],
-            context_object_name='latest_pub_list',
-            template_name='livraria/index.html')),
+    url(r'^$',  'livraria.views.index'),
 )

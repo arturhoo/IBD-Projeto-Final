@@ -1,9 +1,30 @@
+{% extends 'base.html' %}
+{% block title %}Trabalho de IBD{% endblock %}
+
+{% block content %}
+<div id="formDiv">
+<center>
+<form action="/livraria/search/" method="post">{% csrf_token %}
+    {{ form.as_p }}
+    <input type="submit" name="Submit" value="Pesquisar"/>
+</form>
+</center>
+</div>
+
 {% if latest_pub_list %}
     <ul>
     {% for pub in latest_pub_list %}
         <li><a href="/livraria/pub/{{ pub.cod }}/">{{ pub.titulo }}</a></li>
     {% endfor %}
     </ul>
-{% else %}
-    <p>Sem publicacoes.</p>
+    {% else %} 
+        {% if pubs %}
+        <ul>
+        {% for pub in pubs %}
+            <li><a href="/livraria/pub/{{ pub.cod }}/">{{ pub.titulo }}</a></li>
+        {% endfor %}
+        </ul>
+    {% endif %}
 {% endif %}
+
+{% endblock %}
