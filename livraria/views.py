@@ -47,17 +47,9 @@ def search(request):
                 })
                 return render_to_response('livraria/index.html', c)
         else:
-            f = SearchForm()
-            return render_to_response('livraria/index.html', {
-                'latest_pub_list': [],
-                'form': f
-            })
+            return index(request)
     else:
-        f = SearchForm()
-        return render_to_response('livraria/index.html', {
-            'latest_pub_list': [],
-            'form': f
-        })
+        return index(request)
 
 
 

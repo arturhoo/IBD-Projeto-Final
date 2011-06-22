@@ -1,4 +1,38 @@
-<p><b>{{ pub.titulo }}</b> - {{ pub.cod }}</p>
-{% for a in pub.autores.all %}
-<p> Autor: {{ a }} </p>
-{% endfor %}
+{% extends 'base.html' %}
+{% block title %}Trabalho de IBD{% endblock %}
+
+{% block content %}
+<div>
+<center>
+    <table id='hor-minimalist-b'>
+        <thead>
+            <tr>
+                <th class='title' colspan=2 >Detalhes</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>Título</td>
+                <td>{{ pub.titulo }}</td>
+            </tr>
+            <tr>
+                <td>Autores</td>
+                <td>{% for a in pub.autores.all %}{{ a }}{% endfor %}</td>
+            </tr>
+            <tr>
+                <td>Editora</td>
+                <td>{{ pub.editora_cnpj }}</td>
+            </tr>
+            <tr>
+                <td>Data de lançamento</td>
+                <td>{{ pub.data_lancamento }}</td>
+            </tr>
+            <tr>
+                <td>Quantidade em estoque</td>
+                <td>{{ pub.estoque }}</td>
+            </tr>
+        </tbody>
+
+</center>
+</div>
+{% endblock %}

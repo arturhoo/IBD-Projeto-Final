@@ -2,6 +2,8 @@
 {% block title %}Trabalho de IBD{% endblock %}
 
 {% block content %}
+<h1 align="center">Trabalho de IBD</h1>
+
 <div id="formDiv">
 <center>
 <form action="/livraria/search/" method="post">{% csrf_token %}
@@ -11,20 +13,63 @@
 </center>
 </div>
 
+<br/>
+<br/>
+
+<div id="results">
+<center>
 {% if latest_pub_list %}
-    <ul>
-    {% for pub in latest_pub_list %}
-        <li><a href="/livraria/pub/{{ pub.cod }}/">{{ pub.titulo }}</a></li>
-    {% endfor %}
-    </ul>
-    {% else %} 
-        {% if pubs %}
-        <ul>
-        {% for pub in pubs %}
-            <li><a href="/livraria/pub/{{ pub.cod }}/">{{ pub.titulo }}</a></li>
+    <table id='hor-minimalist-b'>
+        <thead>
+            <tr>
+                <th class='title' colspan=2 >Publicações Recentes</th>
+            </tr>
+            <tr>
+                <th>Título da Publicação</th>
+                <th>Autores</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for pub in latest_pub_list %}
+            <tr>
+                <td><a href="/livraria/pub/{{ pub.cod }}/">{{ pub.titulo }}</a></td>
+                <td>
+                    {% for a in pub.autores.all %}
+                    {{ a }} <br>
+                    {% endfor %}
+                </td>
+            </tr>
         {% endfor %}
-        </ul>
+        </tbody>
+    </table>
+{% else %} 
+    {% if pubs %}
+    <table id='hor-minimalist-b'>
+        <thead>
+            <tr>
+                <th class='title' colspan=2 >Resultado da Busca</th>
+            </tr>
+            <tr>
+                <th>Título da Publicação</th>
+                <th>Autores</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for pub in pubs %}
+            <tr>
+                <td><a href="/livraria/pub/{{ pub.cod }}/">{{ pub.titulo }}</a></td>
+                <td>
+                    {% for a in pub.autores.all %}
+                    {{ a }} <br>
+                    {% endfor %}
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
     {% endif %}
 {% endif %}
+</center>
+</div>
 
 {% endblock %}

@@ -10,6 +10,4 @@ urlpatterns = patterns('livraria.views',
 #            template_name='livraria/index.html')),
     (r'^pub/(?P<pub_id>\d+)/$', 'detail'),
     (r'^search/$', 'search'),
-    (r'^tsearch/(?P<title>[^/]+)/$', 'titleSearch'),
-    (r'^asearch/(?P<name>[^/]+)/$', 'authorSearch'),
 )
