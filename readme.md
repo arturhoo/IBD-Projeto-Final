@@ -39,13 +39,20 @@ database inside your PostgreSQL installation
     CREATE DATABASE <name_of_the_db> OWNER <name_of_the_user>;
     (CTRL+D to exit)
 
+Concerning your Django project, you must rename your directory name,
+probably IBD-Projeto-Final to ibd
+
+    mv IBD-Projeto-Final to ibd
+
 Now it's time to configure your Django project local settings. Go to its
 dir and
 
     cp local_settings.py.template local_settings.py
 
 Configure it according to the PostgreSQL configuration you just went
-through.
+through. Next sync your database
+
+    python manage.py syncdb
 
 That should be it. Now it's time to run your test server:
 
