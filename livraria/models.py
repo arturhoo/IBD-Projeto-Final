@@ -59,7 +59,7 @@ class Imagem(models.Model):
         verbose_name_plural = u"Imagens"
         db_table = u'imagem'
     def __unicode__(self):
-        return self.cod
+        return str(self.cod)
 
 #class PublicacaoHasAutor(models.Model):
 #    publicacao_cod = models.ForeignKey(Publicacao, db_column='publicacao_cod')
@@ -76,7 +76,7 @@ class Venda(models.Model):
     class Meta:
         db_table = u'venda'
     def __unicode__(self):
-        return self.cod
+        return str(self.cod)
 
 #class VendaHasPublicacao(models.Model):
 #    venda_cod = models.ForeignKey(Venda, db_column='venda_cod')
