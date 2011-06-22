@@ -42,7 +42,7 @@ database inside your PostgreSQL installation
 Concerning your Django project, you must rename your directory name,
 probably IBD-Projeto-Final to ibd
 
-    mv IBD-Projeto-Final to ibd
+    mv IBD-Projeto-Final/ ibd
 
 Now it's time to configure your Django project local settings. Go to its
 dir and
