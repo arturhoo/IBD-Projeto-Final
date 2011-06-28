@@ -16,5 +16,4 @@ DATABASES = {
 
 STATIC_ROOT = "/usr/share/ibd/static"
 
-
 STATICFILES_DIRS = ("/usr/share/ibd/media", "/usr/share/ibd/media/css")
